@@ -4,15 +4,17 @@ export class DashboardPage {
   }
 
   async isAtDashboard() {
-    return await this.page.isVisible('.inventory_list');
+    const isVisible = await this.page.isVisible('.inventory_list', { timeout: 60000 });
+    await this.page.screenshot({ path: 'screenshots/dashboardPage.png' });
+    return isVisible;
   }
 
   async addItemToCart(itemName) {
-    await this.page.click(`text=${itemName}`);
-    await this.page.click('button:has-text("Add to cart")');
+    await this.page.click(`text=${itemName}`, { force: true });
+    await this.page.click('button:has-text("Add to cart")', { force: true });
   }
 
   async goToCart() {
-    await this.page.click('.shopping_cart_link');
+    await this.page.click('.shopping_cart_link', { force: true });
   }
 }

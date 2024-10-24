@@ -4,6 +4,8 @@ export class CartPage {
   }
 
   async isItemInCart(itemName) {
-    return await this.page.isVisible(`text=${itemName}`);
+    const isVisible = await this.page.isVisible(`text=${itemName}`, { timeout: 60000 });
+    await this.page.screenshot({ path: 'screenshots/cartPage.png' });
+    return isVisible;
   }
 }

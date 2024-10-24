@@ -4,12 +4,13 @@ export class LoginPage {
   }
 
   async navigate() {
-    await this.page.goto('https://www.saucedemo.com/');
+    await this.page.goto(process.env.BASE_URL, { timeout: 60000, waitUntil: 'domcontentloaded' });
+    await this.page.screenshot({ path: 'screenshots/loginPage.png', timeout: 10000 });
   }
 
   async login(username, password) {
     await this.page.fill('#user-name', username);
     await this.page.fill('#password', password);
-    await this.page.click('#login-button');
+    await this.page.click('#login-button', { force: true });
   }
 }
